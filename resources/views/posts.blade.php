@@ -8,7 +8,8 @@
             <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['title'] }}</h2>
         </a>
         <div>
-            <a href="#">{{ $post['author'] }}</a> | <a href="#">2 Januari</a>
+            <a href="#">{{ $post['author'] }}</a> | <a href="#">{{ $post->created_at->format('j F Y') }}</a>
+            {{-- <a href="#">{{ $post['author'] }}</a> | <a href="#">{{ $post->created_at->diffForHumans() }}</a> --}}
         </div class="text-base text-gray-500">
         <p class="my-4 font-light">
             {{ Str::limit($post['body'], 30) }}
