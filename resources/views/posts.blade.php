@@ -9,7 +9,7 @@
         </a>
         <div>
             By
-            <a href="/authors/{{ $post->author->username }}" class="hover:underline">{{ $post->author->name }}</a>
+            <a href="/authors/{{ $post->author->username }}" class="hover:underline">{{ $post->author->name }}</a> <!-- lazyloading, gunakan eager loading -->
             in  
             <a href="/categories/{{ $post->category->slug }}" class="hover:underline">{{ $post->category->name }}</a>  
             <a href="#">{{ $post->created_at->format('j F Y') }}</a>

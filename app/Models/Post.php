@@ -13,8 +13,9 @@ class Post extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $with = ['author', 'category']; //eager loading, biar query lebih cepat
 
-    //eloquent reationship
+    //eloquent reationship //akan menghasilkan lazy loading
     public function author(): BelongsTo //jangan lupa import class belongs To
     {
         return $this->belongsTo(User::class); //satu post milik satu user ke table user

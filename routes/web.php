@@ -21,9 +21,11 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
+    // $posts = Post::with(['author', 'category'])->latest()->get(); //eager loading, realtion model post dengan user dan category
+    $posts = Post::latest()->get();
     return view('posts', [
         'title' => 'Blog',
-        'posts' => Post::all()
+        'posts' => $posts 
     ]);
 });
 
@@ -50,6 +52,8 @@ Route::get('/authors/{user:username}', function(User $user) {
         // $post = Post::find($slug);
 
         // dd($post);
+
+        // $posts = $user->posts->load('category', 'author'); //lazy eager loading, menggunakan load karean parent nya sudah dipakai oleh posts ::with
         return view('posts', [
             'title' => count($user->posts) . ' Article By ' . $user->name,
             'posts' => $user->posts,
@@ -61,6 +65,7 @@ Route::get('/categories/{category:slug}', function(Category $category) {
         // $post = Post::find($slug);
 
         // dd($post);
+        // $posts = $category->posts->load('category', 'author');  //lazy eager loading
         return view('posts', [
             'title' => count($category->posts) . ' Artikel Category : ' . $category->name,
             'posts' => $category->posts,
