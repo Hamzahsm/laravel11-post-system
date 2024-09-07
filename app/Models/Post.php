@@ -4,13 +4,21 @@ namespace App\Models;
 
 use Illuminate\Support\Arr;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use App\Models\User;
 
 class Post extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    //eloquent reationship
+    public function author(): BelongsTo //jangan lupa import class belongs To
+    {
+        return $this->belongsTo(User::class); //satu post milik satu user ke table user
+    }
 }
 
 
