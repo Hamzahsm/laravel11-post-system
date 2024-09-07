@@ -19,6 +19,11 @@ class Post extends Model
     {
         return $this->belongsTo(User::class); //satu post milik satu user ke table user
     }
+
+    public function category(): BelongsTo 
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
 
 

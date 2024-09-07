@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -45,12 +46,23 @@ Route::get('/posts/{post:slug}', function(Post $post) {
     });
 
 //route model binding -> menghubungkan antara rute dan model
-Route::get('/authors/{user}', function(User $user) {
+Route::get('/authors/{user:username}', function(User $user) {
         // $post = Post::find($slug);
 
         // dd($post);
         return view('posts', [
-            'title' => 'Article by' . $user->name,
+            'title' => count($user->posts) . ' Article By ' . $user->name,
             'posts' => $user->posts,
+        ]);
+    });
+
+//route model binding -> menghubungkan antara rute dan model
+Route::get('/categories/{category:slug}', function(Category $category) {
+        // $post = Post::find($slug);
+
+        // dd($post);
+        return view('posts', [
+            'title' => count($category->posts) . ' Artikel Category : ' . $category->name,
+            'posts' => $category->posts,
         ]);
     });

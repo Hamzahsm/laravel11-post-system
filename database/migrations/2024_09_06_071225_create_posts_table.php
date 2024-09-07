@@ -20,6 +20,11 @@ return new class extends Migration
                 table: 'users',
                 indexName: 'posts_author_id', //ini penamaan ada
             ); //kolom author di post disamakan dengan id yang ada di table user
+
+            $table->foreignId('category_id')->constrained(
+                table: 'categories', //nama table
+                indexName: 'posts_category_id', //ini penamaan ada
+            ); //kolom author di post disamakan dengan id yang ada di table user
             $table->string('title');
             $table->text('body');
             $table->timestamps();
