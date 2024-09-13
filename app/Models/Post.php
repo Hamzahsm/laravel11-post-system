@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Arr;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use App\Models\User;
@@ -25,6 +26,36 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    //search fitur -> query scope
+    public function scopeFilter(Builder $query , array $filters): void 
+    {
+        //
+        $query->when(
+            $filters['search'] ?? false,
+            fn ($query, $search) => //kalau ada input search, kembalikan input search, kalau tidak ada, batalkan
+            $query->where('title', 'like', '%' . $search . '%')
+        );
+
+        $query->when(
+            $filters['category'] ?? false,
+            fn($query, $category) => //calback function fn()
+            $query->whereHas('category', fn($query) => //whereHas -> db relations
+                $query->where('slug', $category)
+            )
+        );
+
+        $query->when(
+            $filters['author'] ?? false,
+            fn($query, $author) => //calback function fn()
+            $query->whereHas('author', fn($query) => //whereHas -> db relations 
+                $query->where('username', $author)
+            )
+        );
+
+        
+    }
+
 }
 
 
