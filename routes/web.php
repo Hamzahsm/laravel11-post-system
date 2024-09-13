@@ -25,7 +25,8 @@ Route::get('/posts', function () {
     $posts = Post::latest()->get();
     return view('posts', [
         'title' => 'Blog',
-        'posts' => Post::filter(request(['search','category', 'author']))->latest()->get()]);
+        // 'posts' => Post::filter(request(['search','category', 'author']))->latest()->get()]);
+        'posts' => Post::filter(request(['search','category', 'author']))->latest()->paginate(9)->withQueryString()]);
 });
 
 Route::get('/contact', function () {
